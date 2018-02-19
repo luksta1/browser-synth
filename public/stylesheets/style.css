@@ -1,0 +1,67 @@
+.column {
+    display: flex;
+    flex-direction: column
+}
+
+.note {
+    border: 1px solid #ccc;
+    padding: 1em;
+    max-width: 6%;
+    text-align: center;
+}
+
+.note:hover {
+    cursor: pointer;
+}
+
+.r1.selected,
+.r5.selected,
+.r9.selected {
+    background-color: rgb(153, 191, 241);
+}
+
+.r1.selected:hover,
+.r5.selected:hover,
+.r9.selected:hover {
+    background-color: rgb(165, 199, 245);
+    transition: background-color 0.5s;
+}
+
+.r2.selected,
+.r6.selected,
+.r10.selected {
+    background-color: rgb(100, 223, 196);
+}
+
+.r2.selected:hover,
+.r6.selected:hover,
+.r10.selected:hover {
+    background-color: rgb(111, 230, 204);
+    transition: background-color 0.5s;
+}
+
+.r3.selected,
+.r7.selected,
+.r11.selected {
+    background-color: rgb(32, 204, 118);
+}
+
+.r3.selected:hover,
+.r7.selected:hover,
+.r11.selected:hover {
+    background-color: rgb(52, 226, 139);
+    transition: background-color 0.5s;
+}
+
+.r4.selected,
+.r8.selected,
+.r12.selected {
+    background-color: rgb(176, 95, 230);
+}
+
+.r4.selected:hover,
+.r8.selected:hover,
+.r12.selected:hover {
+    background-color: rgb(183, 107, 235);
+    transition: background-color 0.5s;
+}
