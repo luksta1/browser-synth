@@ -7,7 +7,7 @@ import Tone from 'tone';
    Also it is HILARIOUS :D Have fun!
  */
 
-export default class WinterJokes extends Component {
+export default class SynthColumn extends Component {
 
   constructor() {
     super()
@@ -33,15 +33,15 @@ export default class WinterJokes extends Component {
   render() {
 
     return (
-      <div>
-        <button onMouseDown={this.startNote} onMouseUp={this.endNote}>C4</button>
-        <button onMouseDown={this.startNote} onMouseUp={this.endNote}>D4</button>
-        <button onMouseDown={this.startNote} onMouseUp={this.endNote}>E4</button>
-        <button onMouseDown={this.startNote} onMouseUp={this.endNote}>F4</button>
-        <button onMouseDown={this.startNote} onMouseUp={this.endNote}>G4</button>
-        <button onMouseDown={this.startNote} onMouseUp={this.endNote}>A4</button>
-        <button onMouseDown={this.startNote} onMouseUp={this.endNote}>B4</button>
-        <button onMouseDown={this.startNote} onMouseUp={this.endNote}>C5</button>
+      <div className="column">
+        <div onMouseDown={this.startNote} onMouseUp={this.endNote}>C4</div>
+        <div onMouseDown={this.startNote} onMouseUp={this.endNote}>D4</div>
+        <div onMouseDown={this.startNote} onMouseUp={this.endNote}>E4</div>
+        <div onMouseDown={this.startNote} onMouseUp={this.endNote}>F4</div>
+        <div onMouseDown={this.startNote} onMouseUp={this.endNote}>G4</div>
+        <div onMouseDown={this.startNote} onMouseUp={this.endNote}>A4</div>
+        <div onMouseDown={this.startNote} onMouseUp={this.endNote}>B4</div>
+        <div onMouseDown={this.startNote} onMouseUp={this.endNote}>C5</div>
       </div>
     )
   }
