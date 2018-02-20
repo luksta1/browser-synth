@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
+import { Router, Route, Switch } from 'react-router-dom'
 import Tone from 'tone';
+// import axios from 'axios'
+import MainPlayer from './MainPlayer.jsx'
+import Home from './Home.jsx'
+import Library from './Library.jsx'
 
-
-/* The code below does NOT relate to your project.
-   This code is just a nice BIG example of how you can make a component.
-   Also it is HILARIOUS :D Have fun!
- */
-
-export default class SynthColumn extends Component {
+export default class Root extends Component {
 
     constructor() {
         super()
@@ -18,25 +17,18 @@ export default class SynthColumn extends Component {
 
         this.startNote = this.startNote.bind(this)
         this.endNote = this.endNote.bind(this)
-        this.toggleSelected = this.toggleSelected.bind(this)
+
         this.changeSynth = this.changeSynth.bind(this)
         this.playLoop = this.playLoop.bind(this)
     }
 
     startNote(event) {
+        console.log('start', event.target.textContent)
         this.state.synth.triggerAttack(event.target.textContent);
     }
 
     endNote(event) {
         this.state.synth.triggerRelease();
-    }
-
-    toggleSelected(event) {
-        const selectedNote = document.querySelector('.selectedNote');
-        if (selectedNote) {
-            selectedNote.classList.remove('selectedNote');
-        }
-        event.target.classList.add('selectedNote')
     }
 
     changeSynth(event) {
@@ -57,8 +49,15 @@ export default class SynthColumn extends Component {
 
     playLoop(event) {
         let playNotes = [];
-        Array.from(document.getElementsByClassName('selectedNote')).forEach(note => {
-            playNotes.push(note.innerHTML)
+        const allColumns = document.querySelectorAll('.column');
+        [].forEach.call(allColumns, function (column) {
+            let selected = column.querySelector('.selectedNote')
+            console.log(selected)
+            if (selected) {
+                playNotes.push(selected.innerHTML)
+            } else {
+                playNotes.push(0)
+            }
         })
         let synth = this.state.synth
         let loop = new Tone.Loop(function () {
@@ -71,30 +70,15 @@ export default class SynthColumn extends Component {
         Tone.Transport.start('+0.1')
     }
 
-
     render() {
-
+        console.log(this.playLoop)
         return (
-            <div className="column">
-                <div className="synths">
-                    <button onClick={this.changeSynth} href="#">Mono Synth</button>
-                    <button onClick={this.changeSynth} href="#">Duo Synth</button>
-                    <button onClick={this.changeSynth} href="#">Membrane Synth</button>
-                    <button onClick={this.playLoop} href="#">Play</button>
-                </div>
-                <div className="note r1" onMouseDown={this.startNote} onMouseUp={this.endNote} onClick={this.toggleSelected}>B5</div>
-                <div className="note r2" onMouseDown={this.startNote} onMouseUp={this.endNote} onClick={this.toggleSelected}>G5</div>
-                <div className="note r3" onMouseDown={this.startNote} onMouseUp={this.endNote} onClick={this.toggleSelected}>E5</div>
-                <div className="note r4" onMouseDown={this.startNote} onMouseUp={this.endNote} onClick={this.toggleSelected}>C5</div>
-                <div className="note r5" onMouseDown={this.startNote} onMouseUp={this.endNote} onClick={this.toggleSelected}>B4</div>
-                <div className="note r6" onMouseDown={this.startNote} onMouseUp={this.endNote} onClick={this.toggleSelected}>G4</div>
-                <div className="note r7" onMouseDown={this.startNote} onMouseUp={this.endNote} onClick={this.toggleSelected}>E4</div>
-                <div className="note r8" onMouseDown={this.startNote} onMouseUp={this.endNote} onClick={this.toggleSelected}>C4</div>
-                <div className="note r9" onMouseDown={this.startNote} onMouseUp={this.endNote} onClick={this.toggleSelected}>B3</div>
-                <div className="note r10" onMouseDown={this.startNote} onMouseUp={this.endNote} onClick={this.toggleSelected}>G3</div>
-                <div className="note r11" onMouseDown={this.startNote} onMouseUp={this.endNote} onClick={this.toggleSelected}>E3</div>
-                <div className="note r12" onMouseDown={this.startNote} onMouseUp={this.endNote} onClick={this.toggleSelected}>C3</div>
+
+            <div id="container">
+                <MainPlayer startNote={this.startNote} endNote={this.endNote} changeSynth={this.changeSynth} playLoop={this.playLoop} />
             </div>
+
         )
     }
+
 }

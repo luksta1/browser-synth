@@ -1,48 +1,39 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Tone from 'tone';
 
 
-/* The code below does NOT relate to your project.
-   This code is just a nice BIG example of how you can make a component.
-   Also it is HILARIOUS :D Have fun!
- */
+const SynthColumn = (props) => {
 
-export default class SynthColumn extends Component {
+  console.log(props.id)
 
-  constructor() {
-    super()
 
-    this.state = {
-      synth: new Tone.MonoSynth().toMaster()
+  const toggleSelected = (event) => {
+    const currentColumn = document.getElementById(props.id)
+    const selectedNote = currentColumn.querySelector('.selectedNote');
+    if (selectedNote) {
+      selectedNote.classList.remove('selectedNote');
     }
-    console.log('constructor', this.state)
-    this.startNote = this.startNote.bind(this)
-    this.endNote = this.endNote.bind(this)
+    event.target.classList.add('selectedNote')
   }
 
-  startNote(event) {
-    console.log('start', this.state)
-    this.state.synth.triggerAttack(event.target.textContent);
-  }
 
-  endNote(event) {
-    this.state.synth.triggerRelease();
-    console.log('end', this.state)
-  }
+  return (
+    <div className="column-inner">
+      <div className="note r1" onMouseDown={props.startNote} onMouseUp={props.endNote} onClick={toggleSelected}>B5</div>
+      <div className="note r2" onMouseDown={props.startNote} onMouseUp={props.endNote} onClick={toggleSelected}>G5</div>
+      <div className="note r3" onMouseDown={props.startNote} onMouseUp={props.endNote} onClick={toggleSelected}>E5</div>
+      <div className="note r4" onMouseDown={props.startNote} onMouseUp={props.endNote} onClick={toggleSelected}>C5</div>
+      <div className="note r5" onMouseDown={props.startNote} onMouseUp={props.endNote} onClick={toggleSelected}>B4</div>
+      <div className="note r6" onMouseDown={props.startNote} onMouseUp={props.endNote} onClick={toggleSelected}>G4</div>
+      <div className="note r7" onMouseDown={props.startNote} onMouseUp={props.endNote} onClick={toggleSelected}>E4</div>
+      <div className="note r8" onMouseDown={props.startNote} onMouseUp={props.endNote} onClick={toggleSelected}>C4</div>
+      <div className="note r9" onMouseDown={props.startNote} onMouseUp={props.endNote} onClick={toggleSelected}>B3</div>
+      <div className="note r10" onMouseDown={props.startNote} onMouseUp={props.endNote} onClick={toggleSelected}>G3</div>
+      <div className="note r11" onMouseDown={props.startNote} onMouseUp={props.endNote} onClick={toggleSelected}>E3</div>
+      <div className="note r12" onMouseDown={props.startNote} onMouseUp={props.endNote} onClick={toggleSelected}>C3</div>
+    </div>
+  )
 
-  render() {
-
-    return (
-      <div className="column">
-        <div onMouseDown={this.startNote} onMouseUp={this.endNote}>C4</div>
-        <div onMouseDown={this.startNote} onMouseUp={this.endNote}>D4</div>
-        <div onMouseDown={this.startNote} onMouseUp={this.endNote}>E4</div>
-        <div onMouseDown={this.startNote} onMouseUp={this.endNote}>F4</div>
-        <div onMouseDown={this.startNote} onMouseUp={this.endNote}>G4</div>
-        <div onMouseDown={this.startNote} onMouseUp={this.endNote}>A4</div>
-        <div onMouseDown={this.startNote} onMouseUp={this.endNote}>B4</div>
-        <div onMouseDown={this.startNote} onMouseUp={this.endNote}>C5</div>
-      </div>
-    )
-  }
 }
+
+export default SynthColumn;

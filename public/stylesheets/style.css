@@ -1,7 +1,17 @@
+.player {
+    width: 100vw;
+}
+
+#player-body {
+    display: flex;
+    flex-direction: row;
+}
+
 .column {
     display: flex;
     flex-direction: column;
-    max-width: 6%;
+    max-width: 100%;
+    flex-grow: 1;
 }
 
 .note {
@@ -55,7 +65,7 @@
 
 .r4.selectedNote,
 .r8.selectedNote,
-.r12.selectedv {
+.r12.selectedNote {
     background-color: rgb(176, 95, 230);
 }
 
@@ -64,4 +74,16 @@
 .r12.selectedNote:hover {
     background-color: rgb(183, 107, 235);
     transition: background-color 0.5s;
+}
+
+footer {
+    width: 100vw;
+}
+
+.controlBar,
+#synth-options,
+#control-options {
+    display: flex;
+    flex-direction: row;
+    align-items: space-between;
 }
