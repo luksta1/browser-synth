@@ -69,7 +69,7 @@ export default class Root extends Component {
             pattern.start(0)
         }, "4n")
         loop.start(0)
-        Tone.Transport.start('+0.1');
+        Tone.Transport.start("+0.1")
     }
 
     render() {
