@@ -20,7 +20,7 @@ const MainPlayer = (props) => {
                     </div>
                 ))}
             </div>
-            <ControlBar changeSynth={props.changeSynth} playLoop={props.playLoop} />
+            <ControlBar changeSynth={props.changeSynth} playLoop={props.playLoop} stopLoop={props.stopLoop} />
         </div>
     )
 }

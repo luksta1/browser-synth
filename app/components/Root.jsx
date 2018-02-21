@@ -13,14 +13,17 @@ export default class Root extends Component {
         super()
 
         this.state = {
-            synth: new Tone.MonoSynth().toMaster()
+            synth: new Tone.MonoSynth().toMaster(),
+            loop: null,
+            pattern: null
         }
 
         this.startNote = this.startNote.bind(this)
         this.endNote = this.endNote.bind(this)
-
         this.changeSynth = this.changeSynth.bind(this)
         this.playLoop = this.playLoop.bind(this)
+        this.stopLoop = this.stopLoop.bind(this)
+        this.timelineHighlight = this.timelineHighlight.bind(this)
     }
 
 
@@ -33,15 +36,15 @@ export default class Root extends Component {
     }
 
     changeSynth(event) {
-        if (event.target.textContent === "Membrane Synth") {
+        if (event.target.textContent === 'Membrane Synth') {
             this.setState({
                 synth: new Tone.MembraneSynth().toMaster()
             })
-        } else if (event.target.textContent === "Duo Synth") {
+        } else if (event.target.textContent === 'Duo Synth') {
             this.setState({
                 synth: new Tone.DuoSynth().toMaster()
             })
-        } else if (event.target.textContent === "Mono Synth") {
+        } else if (event.target.textContent === 'Mono Synth') {
             this.setState({
                 synth: new Tone.MonoSynth().toMaster()
             })
@@ -50,33 +53,62 @@ export default class Root extends Component {
 
     playLoop(event) {
         let playNotes = [];
-        let synth = this.state.synth
-        console.log('synth', synth)
         const allColumns = document.querySelectorAll('.column');
-        [].forEach.call(allColumns, function (column) {
+        [].forEach.call(allColumns, (column) => {
             let selected = column.querySelector('.selectedNote')
             if (selected) {
                 playNotes.push(selected.innerHTML)
             } else {
                 playNotes.push(0)
             }
+
         })
 
-        let pattern = new Tone.Pattern(function (time, note) {
-            synth.triggerAttackRelease(note, "8n")
-        }, playNotes);
-        let loop = new Tone.Loop(function () {
-            pattern.start(0)
-        }, "4n")
-        loop.start(0)
-        Tone.Transport.start("+0.1")
+        this.setState({
+            pattern: new Tone.Pattern((time, note) => {
+                this.state.synth.triggerAttackRelease(note, '8n')
+            }, playNotes),
+
+            loop: new Tone.Loop(() => {
+            this.state.pattern.start(0)
+        })}, () => this.timelineHighlight(allColumns))
+        Tone.Transport.start('+0.1')
     }
+
+
+    stopLoop(event) {
+        Tone.Transport.stop()
+        this.state.pattern.stop();
+        this.state.loop.stop();
+        console.log('after stop', this.state.loop.state)
+        this.setState({
+            loop: null
+        })
+
+    }
+
+    timelineHighlight(allColumns) {
+        this.state.loop.start(0);
+        console.log('before stop', this.state.loop.state)
+        // while(this.state.pattern.index < 16) {
+        // allColumns[this.state.pattern.index].classList.add('playing')
+        // if(this.state.pattern.index === 0) {
+        //     allColumns[this.state.pattern.index].classList.remove('playing')
+        // } else {
+        //     allColumns[this.state.pattern.index - 1].classList.remove('playing')
+        // }
+        // }
+            // column.classList.add('playing');
+            // column.classList.remove('playing');
+
+    }
+
 
     render() {
         return (
 
             <div id="container">
-                <MainPlayer startNote={this.startNote} endNote={this.endNote} changeSynth={this.changeSynth} playLoop={this.playLoop} />
+                <MainPlayer startNote={this.startNote} endNote={this.endNote} changeSynth={this.changeSynth} playLoop={this.playLoop} stopLoop={this.stopLoop} />
             </div>
 
         )

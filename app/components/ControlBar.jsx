@@ -8,14 +8,11 @@ const ControlBar = (props) => {
         [].forEach.call(selectedNotes, function (note) {
             note.classList.remove('selectedNote')
         })
-        Tone.Transport.stop()
-        Tone.Transport.cancel()
+        props.stopLoop();
+        // Tone.Transport.stop()
+        // Tone.Transport.cancel()
     }
 
-    const stopLoop = (event) => {
-        Tone.Transport.stop()
-        Tone.Transport.cancel()
-    }
 
     return (
         <footer>
@@ -30,7 +27,7 @@ const ControlBar = (props) => {
                 </div>
                 <div id="control-options">
                     <button className="control-round" id="play-pause" onClick={props.playLoop}>Play</button>
-                    <button className="control-round" id="pause" onClick={stopLoop}>Stop</button>
+                    <button className="control-round" id="pause" onClick={props.stopLoop}>Stop</button>
                     <button className="control-round" id="clear" onClick={clearSelected} >Clear</button>
                     <button className="control-round" id="save">Save</button></div>
             </div>
