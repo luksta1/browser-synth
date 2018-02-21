@@ -6,6 +6,7 @@ import MainPlayer from './MainPlayer.jsx'
 import Home from './Home.jsx'
 import Library from './Library.jsx'
 
+
 export default class Root extends Component {
 
     constructor() {
@@ -22,8 +23,8 @@ export default class Root extends Component {
         this.playLoop = this.playLoop.bind(this)
     }
 
+
     startNote(event) {
-        console.log('start', event.target.textContent)
         this.state.synth.triggerAttack(event.target.textContent);
     }
 
@@ -40,7 +41,7 @@ export default class Root extends Component {
             this.setState({
                 synth: new Tone.DuoSynth().toMaster()
             })
-        } else {
+        } else if (event.target.textContent === "Mono Synth") {
             this.setState({
                 synth: new Tone.MonoSynth().toMaster()
             })
@@ -49,21 +50,22 @@ export default class Root extends Component {
 
     playLoop(event) {
         let playNotes = [];
+        let synth = this.state.synth
+        console.log('synth', synth)
         const allColumns = document.querySelectorAll('.column');
         [].forEach.call(allColumns, function (column) {
             let selected = column.querySelector('.selectedNote')
-            console.log(selected)
             if (selected) {
                 playNotes.push(selected.innerHTML)
             } else {
                 playNotes.push(0)
             }
         })
-        let synth = this.state.synth
+
+        let pattern = new Tone.Pattern(function (time, note) {
+            synth.triggerAttackRelease(note, "8n")
+        }, playNotes);
         let loop = new Tone.Loop(function () {
-            let pattern = new Tone.Pattern(function (time, note) {
-                synth.triggerAttackRelease(note, "8n")
-            }, playNotes);
             pattern.start(0)
         }, "4n")
         loop.start(0)
@@ -71,7 +73,6 @@ export default class Root extends Component {
     }
 
     render() {
-        console.log(this.playLoop)
         return (
 
             <div id="container">

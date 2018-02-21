@@ -1,4 +1,5 @@
 import React from 'react';
+import Tone from 'tone'
 
 const ControlBar = (props) => {
 
@@ -7,7 +8,13 @@ const ControlBar = (props) => {
         [].forEach.call(selectedNotes, function (note) {
             note.classList.remove('selectedNote')
         })
+        Tone.Transport.stop()
+        Tone.Transport.cancel()
+    }
 
+    const stopLoop = (event) => {
+        Tone.Transport.stop()
+        Tone.Transport.cancel()
     }
 
     return (
@@ -22,7 +29,8 @@ const ControlBar = (props) => {
                     <div id="drum-dropdown"></div>
                 </div>
                 <div id="control-options">
-                    <button className="control-round" id="play-pause" onClick={props.playLoop}>Play/Pause</button>
+                    <button className="control-round" id="play-pause" onClick={props.playLoop}>Play</button>
+                    <button className="control-round" id="pause" onClick={stopLoop}>Stop</button>
                     <button className="control-round" id="clear" onClick={clearSelected} >Clear</button>
                     <button className="control-round" id="save">Save</button></div>
             </div>

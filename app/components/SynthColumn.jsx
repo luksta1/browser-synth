@@ -4,9 +4,6 @@ import Tone from 'tone';
 
 const SynthColumn = (props) => {
 
-  console.log(props.id)
-
-
   const toggleSelected = (event) => {
     const currentColumn = document.getElementById(props.id)
     const selectedNote = currentColumn.querySelector('.selectedNote');

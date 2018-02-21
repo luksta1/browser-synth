@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { Router, Route, Switch } from 'react-router-dom'
 import Tone from 'tone';
+import axios from 'axios'
+import MainPlayer from './MainPlayer.jsx'
 
 
 /* The code below does NOT relate to your project.
@@ -60,6 +63,7 @@ export default class SynthColumn extends Component {
         Array.from(document.getElementsByClassName('selectedNote')).forEach(note => {
             playNotes.push(note.innerHTML)
         })
+        console.log(playNotes)
         let synth = this.state.synth
         let loop = new Tone.Loop(function () {
             let pattern = new Tone.Pattern(function (time, note) {
