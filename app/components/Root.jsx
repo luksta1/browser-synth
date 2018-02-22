@@ -15,7 +15,7 @@ export default class Root extends Component {
         this.state = {
             synth: new Tone.MonoSynth().toMaster(),
             loop: null,
-            pattern: null
+            pattern: {}
         }
 
         this.startNote = this.startNote.bind(this)
@@ -63,15 +63,15 @@ export default class Root extends Component {
             }
 
         })
-
         this.setState({
             pattern: new Tone.Pattern((time, note) => {
                 this.state.synth.triggerAttackRelease(note, '8n')
             }, playNotes),
 
             loop: new Tone.Loop(() => {
-            this.state.pattern.start(0)
-        })}, () => this.timelineHighlight(allColumns))
+                this.state.pattern.start(0)
+            })
+        }, () => this.timelineHighlight(allColumns))
         Tone.Transport.start('+0.1')
     }
 
@@ -81,9 +81,6 @@ export default class Root extends Component {
         this.state.pattern.stop();
         this.state.loop.stop();
         console.log('after stop', this.state.loop.state)
-        this.setState({
-            loop: null
-        })
 
     }
 
@@ -98,8 +95,8 @@ export default class Root extends Component {
         //     allColumns[this.state.pattern.index - 1].classList.remove('playing')
         // }
         // }
-            // column.classList.add('playing');
-            // column.classList.remove('playing');
+        // column.classList.add('playing');
+        // column.classList.remove('playing');
 
     }
 
