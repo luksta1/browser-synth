@@ -1,3 +1,7 @@
+body {
+    margin: 0px;
+}
+
 .player {
     width: 100vw;
 }
@@ -15,7 +19,11 @@
 }
 
 .playing {
-    background-color: #f1efef
+    background-color: rgba(0, 0, 0, .18);
+}
+
+.playing .selectedNote {
+    background-color: rgb(139, 138, 138) !important;
 }
 
 .column-inner:first-child {
@@ -123,6 +131,9 @@ footer {
     background-color: #fff;
     margin-right: 1em;
     outline: none;
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    color: #a0a0a0;
 }
 
 #synth-options .control-square:hover,
@@ -196,4 +207,56 @@ footer {
 #player-body {
     border-top: 1px solid rgb(206, 193, 193);
     border-bottom: 1px solid rgb(206, 193, 193);
+}
+
+#bpm-options {
+    flex-grow: .4;
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+#bpm-options h6 {
+    margin: 0;
+    font-size: .8em;
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    color: #a0a0a0;
+}
+
+.slidecontainer {
+    width: 100%;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 25px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #4CAF50;
+    cursor: pointer;
 }

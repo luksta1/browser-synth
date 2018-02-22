@@ -1,39 +1,63 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Tone from 'tone'
 
-const ControlBar = (props) => {
+export default class ControlBar extends Component {
 
-    const clearSelected = (event) => {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            bpm: 120
+        }
+
+        this.clearSelected = this.clearSelected.bind(this)
+        this.handleChange = this.handleChange.bind(this)
+    }
+
+    clearSelected(event) {
         const selectedNotes = document.querySelectorAll('.selectedNote');
         [].forEach.call(selectedNotes, function (note) {
             note.classList.remove('selectedNote')
         })
-        props.stopLoop();
+        this.props.stopLoop();
         // Tone.Transport.stop()
         // Tone.Transport.cancel()
     }
 
+    handleChange(event) {
+        this.setState({
+            bpm: event.target.value
+        }, () => {
+            Tone.Transport.bpm.value = this.state.bpm;
+        })
+    }
 
-    return (
-        <footer>
-            <div className="controlBar">
-                <div id="synth-options">
-                    <button className="control-square" id="mono" onClick={props.changeSynth}>Mono Synth</button>
-                    <button className="control-square" id="duo" onClick={props.changeSynth}>Duo Synth</button>
-                    <button className="control-square" id="membrane" onClick={props.changeSynth}>Membrane Synth</button>
+    render() {
+        return (
+            <footer>
+                <div className="controlBar">
+                    <div id="synth-options">
+                        <button className="control-square" id="mono" onClick={this.props.changeSynth}>Mono Synth</button>
+                        <button className="control-square" id="duo" onClick={this.props.changeSynth}>Duo Synth</button>
+                        <button className="control-square" id="membrane" onClick={this.props.changeSynth}>Membrane Synth</button>
+                    </div>
+                    <div id="bpm-options">
+                        <h6>BPM (80 - 240)</h6>
+                        <div className="slidercontainer">
+                            <input className="slider" type="range" min="80" max="240" value={this.state.bpm} onChange={this.handleChange}></input>
+                        </div>
+                    </div>
+                    <div id="control-options">
+                        <button className="control-round" id="play" onClick={this.props.playLoop}>Play</button>
+                        <button className="control-round" id="stop" onClick={this.props.stopLoop}>Stop</button>
+                        <button className="control-round" id="clear" onClick={this.clearSelected} >Clear</button>
+                        <button className="control-round" id="save">Save</button></div>
                 </div>
-                <div id="drum-options">
-                    <div id="drum-dropdown"></div>
-                </div>
-                <div id="control-options">
-                    <button className="control-round" id="play" onClick={props.playLoop}>Play</button>
-                    <button className="control-round" id="stop" onClick={props.stopLoop}>Stop</button>
-                    <button className="control-round" id="clear" onClick={clearSelected} >Clear</button>
-                    <button className="control-round" id="save">Save</button></div>
-            </div>
-        </footer>
-    )
+            </footer>
+        )
+
+    }
 
 }
 
-export default ControlBar;
+// export default ControlBar;

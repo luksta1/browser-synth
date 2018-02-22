@@ -15,7 +15,8 @@ export default class Root extends Component {
         this.state = {
             synth: new Tone.MonoSynth().toMaster(),
             loop: null,
-            pattern: {}
+            pattern: {},
+            patternIndex: null
         }
 
         this.startNote = this.startNote.bind(this)
@@ -23,7 +24,7 @@ export default class Root extends Component {
         this.changeSynth = this.changeSynth.bind(this)
         this.playLoop = this.playLoop.bind(this)
         this.stopLoop = this.stopLoop.bind(this)
-        this.timelineHighlight = this.timelineHighlight.bind(this)
+        this.createNoteArray = this.createNoteArray.bind(this)
     }
 
 
@@ -31,7 +32,7 @@ export default class Root extends Component {
         this.state.synth.triggerAttack(event.target.textContent);
     }
 
-    endNote(event) {
+    endNote() {
         this.state.synth.triggerRelease();
     }
 
@@ -51,7 +52,7 @@ export default class Root extends Component {
         }
     }
 
-    playLoop(event) {
+    createNoteArray() {
         let playNotes = [];
         const allColumns = document.querySelectorAll('.column');
         [].forEach.call(allColumns, (column) => {
@@ -61,43 +62,37 @@ export default class Root extends Component {
             } else {
                 playNotes.push(0)
             }
-
         })
+        return playNotes
+    }
+
+    playLoop() {
+        let noteArr = this.createNoteArray()
+
         this.setState({
             pattern: new Tone.Pattern((time, note) => {
                 this.state.synth.triggerAttackRelease(note, '8n')
-            }, playNotes),
-
+                this.setState({
+                    patternIndex: this.state.pattern.index
+                })
+            }, noteArr),
             loop: new Tone.Loop(() => {
                 this.state.pattern.start(0)
             })
-        }, () => this.timelineHighlight(allColumns))
-        Tone.Transport.start('+0.1')
+        }, () => {
+            this.state.loop.start(0)
+            Tone.Transport.start('+0.1')
+            console.log(this.state.pattern.values)
+        })
     }
 
 
-    stopLoop(event) {
-        Tone.Transport.stop()
-        this.state.pattern.stop();
+    stopLoop() {
         this.state.loop.stop();
-        console.log('after stop', this.state.loop.state)
-
-    }
-
-    timelineHighlight(allColumns) {
-        this.state.loop.start(0);
-        console.log('before stop', this.state.loop.state)
-        // while(this.state.pattern.index < 16) {
-        // allColumns[this.state.pattern.index].classList.add('playing')
-        // if(this.state.pattern.index === 0) {
-        //     allColumns[this.state.pattern.index].classList.remove('playing')
-        // } else {
-        //     allColumns[this.state.pattern.index - 1].classList.remove('playing')
-        // }
-        // }
-        // column.classList.add('playing');
-        // column.classList.remove('playing');
-
+        this.state.pattern.stop()
+        this.setState({
+            patternIndex: null
+        })
     }
 
 
@@ -105,7 +100,7 @@ export default class Root extends Component {
         return (
 
             <div id="container">
-                <MainPlayer startNote={this.startNote} endNote={this.endNote} changeSynth={this.changeSynth} playLoop={this.playLoop} stopLoop={this.stopLoop} />
+                <MainPlayer startNote={this.startNote} endNote={this.endNote} changeSynth={this.changeSynth} playLoop={this.playLoop} stopLoop={this.stopLoop} patternIndex={this.state.patternIndex} />
             </div>
 
         )

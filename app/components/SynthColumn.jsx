@@ -7,15 +7,20 @@ const SynthColumn = (props) => {
   const toggleSelected = (event) => {
     const currentColumn = document.getElementById(props.id)
     const selectedNote = currentColumn.querySelector('.selectedNote');
-    if (selectedNote) {
+    if (event.target.classList.contains('selectedNote')) {
       selectedNote.classList.remove('selectedNote');
     }
-    event.target.classList.add('selectedNote')
+    else if (selectedNote) {
+      selectedNote.classList.remove('selectedNote');
+      event.target.classList.add('selectedNote')
+    } else {
+      event.target.classList.add('selectedNote')
+    }
   }
 
 
   return (
-    <div className="column-inner">
+    <div className={`column-inner ${props.highlight}`}>
       <div className="note r1" onMouseDown={props.startNote} onMouseUp={props.endNote} onClick={toggleSelected}>B5</div>
       <div className="note r2" onMouseDown={props.startNote} onMouseUp={props.endNote} onClick={toggleSelected}>G5</div>
       <div className="note r3" onMouseDown={props.startNote} onMouseUp={props.endNote} onClick={toggleSelected}>E5</div>
