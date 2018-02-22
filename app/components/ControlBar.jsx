@@ -26,8 +26,8 @@ const ControlBar = (props) => {
                     <div id="drum-dropdown"></div>
                 </div>
                 <div id="control-options">
-                    <button className="control-round" id="play-pause" onClick={props.playLoop}>Play</button>
-                    <button className="control-round" id="pause" onClick={props.stopLoop}>Stop</button>
+                    <button className="control-round" id="play" onClick={props.playLoop}>Play</button>
+                    <button className="control-round" id="stop" onClick={props.stopLoop}>Stop</button>
                     <button className="control-round" id="clear" onClick={clearSelected} >Clear</button>
                     <button className="control-round" id="save">Save</button></div>
             </div>

@@ -18,10 +18,17 @@
     background-color: #f1efef
 }
 
+.column-inner:first-child {
+    border-left: 1px solid #eae7e7;
+}
+
 .note {
-    border: 1px solid #ccc;
+    border-right: 1px solid #eae7e7;
     padding: 1em;
     text-align: center;
+    font-size: .8em;
+    color: #eae7e7;
+    font-family: 'Lato', sans-serif;
 }
 
 .note:hover {
@@ -86,8 +93,102 @@ footer {
 
 .controlBar,
 #synth-options,
-#control-options {
+#control-options,
+#nav-options {
     display: flex;
     flex-direction: row;
-    align-items: space-between;
+}
+
+.controlBar,
+.navBar {
+    padding: 1em 2em;
+    background-color: #f1efef;
+    justify-content: space-between;
+}
+
+#control-options .control-round {
+    border-radius: 50%;
+    padding: 2.2em 1.55em;
+    color: #fff;
+    border: none;
+    margin-right: .8em;
+    min-width: 5.7em;
+    outline: none;
+}
+
+#synth-options .control-square,
+#nav-options .control-square {
+    border-radius: .7em;
+    border: none;
+    background-color: #fff;
+    margin-right: 1em;
+    outline: none;
+}
+
+#synth-options .control-square:hover,
+#nav-options .control-square:hover {
+    background-color: #f9f9f9;
+    transition: background-color 0.5s;
+    cursor: pointer;
+}
+
+#synth-options .control-square:focus {
+    background-color: #e4e3e3;
+    transition: background-color 0.1s;
+    box-shadow: inset 0px 1px 2px rgba(0, 0, 0, .2);
+}
+
+#control-options .control-round#play,
+#control-options .control-round#stop {
+    background-color: rgb(133, 167, 231);
+}
+
+#control-options .control-round#play:hover,
+#control-options .control-round#stop:hover {
+    background-color: rgb(124, 160, 228);
+    transition: background-color 0.5s;
+    cursor: pointer;
+}
+
+#control-options .control-round#play:active,
+#control-options .control-round#stop:active {
+    background-color: rgb(118, 153, 219);
+    transition: background-color 0.1s;
+    box-shadow: inset 0px 1px 2px rgba(0, 0, 0, .2);
+}
+
+#control-options .control-round#clear {
+    background-color: rgb(230, 103, 103);
+}
+
+#control-options .control-round#clear:hover {
+    background-color: rgb(224, 93, 93);
+    transition: background-color 0.5s;
+    cursor: pointer;
+}
+
+#control-options .control-round#clear:active {
+    background-color: rgb(204, 81, 81);
+    transition: background-color 0.1s;
+    box-shadow: inset 0px 1px 2px rgba(0, 0, 0, .2);
+}
+
+#control-options .control-round#save {
+    background-color: rgb(121, 230, 126);
+}
+
+#control-options .control-round#save:hover {
+    background-color: rgb(113, 221, 118);
+    transition: background-color 0.5s;
+    cursor: pointer;
+}
+
+#control-options .control-round#save:active {
+    background-color: rgb(107, 212, 113);
+    transition: background-color 0.1s;
+    box-shadow: inset 0px 1px 2px rgba(0, 0, 0, .2);
+}
+
+#nav-options #library {
+    padding: 2em;
 }

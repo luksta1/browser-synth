@@ -3,6 +3,7 @@ import Tone from 'tone';
 
 import SynthColumn from './SynthColumn'
 import ControlBar from './ControlBar'
+import NavBar from './NavBar'
 
 
 const MainPlayer = (props) => {
@@ -13,6 +14,7 @@ const MainPlayer = (props) => {
 
     return (
         <div className="player">
+            <NavBar />
             <div id="player-body">
                 {columns.map((colNum) => (
                     <div key={colNum} id={colNum} className="column">
