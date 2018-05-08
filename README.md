@@ -11,8 +11,8 @@ The idea behind the app is to allow users to create a 16 bar melody in three dif
 #### Build Instructions
 
 You can also clone this repository to your computer by pasting 
-`git clone https://github.com/luksta1/browser-synth` in a terminal window
+`git clone https://github.com/luksta1/browser-synth` in a terminal window.
 
-. Once that is done, please follow these steps:
+Once that is done, please follow these steps:
 - `npm install --save` (this will install the dependencies)
 - `npm run start` (this serves the app on localhost:1337)
