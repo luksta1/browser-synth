@@ -107,6 +107,17 @@ footer {
     flex-direction: row;
 }
 
+#nav-options {
+    justify-content: space-between;
+}
+
+#nav-options h2 {
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    color: #82c283;
+    letter-spacing: 1px;
+}
+
 .controlBar,
 .navBar {
     padding: 1em 2em;
@@ -156,7 +167,7 @@ footer {
 
 #control-options .control-round#play:hover,
 #control-options .control-round#stop:hover {
-    background-color: rgb(124, 160, 228);
+    background-color: rgb(118, 155, 223);
     transition: background-color 0.5s;
     cursor: pointer;
 }
@@ -185,17 +196,17 @@ footer {
 }
 
 #control-options .control-round#save {
-    background-color: rgb(121, 230, 126);
+    background-color: #82c283;
 }
 
 #control-options .control-round#save:hover {
-    background-color: rgb(113, 221, 118);
+    background-color: #77b878;
     transition: background-color 0.5s;
     cursor: pointer;
 }
 
 #control-options .control-round#save:active {
-    background-color: rgb(107, 212, 113);
+    background-color: #74b175;
     transition: background-color 0.1s;
     box-shadow: inset 0px 1px 2px rgba(0, 0, 0, .2);
 }
